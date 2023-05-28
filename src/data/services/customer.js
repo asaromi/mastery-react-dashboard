@@ -5,7 +5,6 @@ let customers = [...customersData]
  * sort: [{ direction: "Ascending", field: "CustomerID" }]
  */
 const renderData = ({ action, sort, skip, take }) => {
-  // console.log("sorting?", sort)
   if (sort) customers.sort(sortData(...sort))
 
   return {
@@ -36,6 +35,7 @@ const sortData =
   }
 
 export const getData = async ({ skip, take, action }) => {
+  // change existing code with your own Get API
   let sort
   if (action?.requestType === "sorting") {
     sort = [action.columnName || "CustomerID", action.direction || "Ascending"]
@@ -45,10 +45,12 @@ export const getData = async ({ skip, take, action }) => {
 }
 
 export const addRecord = async ({ data }) => {
+  // change existing code with your own Store/Create API
   customers.push(data)
 }
 
 export const updateRecord = async ({ primaryKeyValue: [customerId], data }) => {
+  // change existing code with your own Update API
   const index = customers.findIndex(
     (item) => item.CustomerID === customerId
   )
@@ -56,6 +58,7 @@ export const updateRecord = async ({ primaryKeyValue: [customerId], data }) => {
 }
 
 export const deleteRecord = async ({ data }) => {
+  // change existing code with your own Delete API
   const deletedIds = data?.map((item) => item.CustomerID) || []
   const newData = customers.filter((item) => !deletedIds.includes(item.CustomerID))
   
